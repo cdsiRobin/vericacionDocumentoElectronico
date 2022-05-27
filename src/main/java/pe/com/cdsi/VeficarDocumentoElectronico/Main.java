@@ -8,12 +8,16 @@ import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.border.LineBorder;
+
+import pe.com.cdsi.VeficarDocumentoElectronico.conexion.Sqlite;
+
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 
 public class Main {
 
@@ -89,7 +93,8 @@ public class Main {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				String direccionBDSqlite = txtSfsbd.getText();
-				
+				Sqlite objSqlite = new Sqlite(direccionBDSqlite);
+				objSqlite.desconectar();
 			}
 		});
 		btnConectarSqlite.setBounds(89, 77, 107, 23);
