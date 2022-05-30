@@ -11,8 +11,6 @@ import javax.swing.JOptionPane;
 public class Sqlite {
 	
 	private Connection connection = null;
-    private ResultSet resultSet = null;
-    private Statement statement = null;
     
     private String direccionBD;
 
@@ -21,21 +19,28 @@ public class Sqlite {
 		try{
 	         Class.forName("org.sqlite.JDBC");
 	         connection = DriverManager.getConnection("jdbc:sqlite:" + this.direccionBD );
-	         JOptionPane.showMessageDialog(null, "Conectado a la base de datos SQLite [ " + this.direccionBD + "]");
-	    }catch(Exception e){
-	         System.out.println(e);
+             System.out.println("Conexión exitosa con la base de datos SQLite [ " + this.direccionBD + "]");
+	    }catch(Exception ex){
+	         System.out.println(ex);
+             System.out.println("Error de conexión con la B.D SQLite [ " + ex.getMessage() + "]");
 	    }
 	}
-	
-	public void desconectar() {
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+
+    public void desconectar() {
         try {
-            resultSet.close();
-            statement.close();
             connection.close();
             System.out.println("Desconectado de la base de datos [ " + this.direccionBD + "]");
         }
         catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         }
     }
     
