@@ -6,6 +6,11 @@ import java.util.List;
 
 public class ArfafeContro {
 
+    public List<String> listaCias(){
+        ArfafeRepo arfafeRepo = new ArfafeRepo();
+        return arfafeRepo.listaCias();
+    }
+
     public List<String> listarDocuElectro(String cia){
         ArfafeRepo arfafeRepo = new ArfafeRepo();
         return arfafeRepo.listaDocumentoElectronico(cia);
