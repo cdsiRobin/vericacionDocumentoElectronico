@@ -9,14 +9,11 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 public class Sqlite {
-	
 	private Connection connection = null;
-    
     private String direccionBD;
-
 	public Sqlite(String direccionBD) {
-		this.direccionBD = direccionBD;
 		try{
+             this.direccionBD = direccionBD;
 	         Class.forName("org.sqlite.JDBC");
 	         connection = DriverManager.getConnection("jdbc:sqlite:" + this.direccionBD );
              System.out.println("Conexión exitosa con la base de datos SQLite [ " + this.direccionBD + "]");
@@ -25,15 +22,9 @@ public class Sqlite {
              System.out.println("Error de conexión con la B.D SQLite [ " + ex.getMessage() + "]");
 	    }
 	}
-
     public Connection getConnection() {
         return connection;
     }
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
-
     public void desconectar() {
         try {
             connection.close();
@@ -43,7 +34,5 @@ public class Sqlite {
             System.out.println(ex.getMessage());
         }
     }
-    
-    
 
 }

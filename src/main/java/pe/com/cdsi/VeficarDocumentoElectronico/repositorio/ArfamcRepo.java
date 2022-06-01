@@ -2,6 +2,7 @@ package pe.com.cdsi.VeficarDocumentoElectronico.repositorio;
 
 import pe.com.cdsi.VeficarDocumentoElectronico.conexion.Oracle;
 import pe.com.cdsi.VeficarDocumentoElectronico.entidad.Arfamc;
+import pe.com.cdsi.VeficarDocumentoElectronico.entidad.OracleEnti;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,17 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArfamcRepo {
-    private Oracle oracle;
-
-    public ArfamcRepo(String sid,String host,String puerto,String user,String password) {
-        this.oracle = new Oracle(sid,host,puerto,user,password);
-    }
 
     public List<Arfamc> listaCompania(){
         try {
-            Connection conn = this.oracle.conexion();
+            Oracle oracle = new Oracle();
+            Connection conn = oracle.conexion();
             Statement stmt = conn.createStatement();
-            String sql = "SELECT TRIM(NO_CIA) CIA, TRIM(NO_CLIENTE_ONLINE) RUC,TRIM(DIREC_SFS) DIREC FROM FACTU.ARFAMC";
+            String sql = "SELECT TRIM(NO_CIA), TRIM(NO_CLIENTE_ONLINE),TRIM(DIREC_SFS) FROM FACTU.ARFAMC";
             ResultSet rset = stmt.executeQuery(sql);
             List<Arfamc> arfamcList = new ArrayList<Arfamc>();
             while (rset.next()){
@@ -35,4 +32,5 @@ public class ArfamcRepo {
         }
         return null;
     }
+
 }
