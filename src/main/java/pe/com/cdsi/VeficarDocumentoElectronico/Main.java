@@ -1,15 +1,20 @@
 package pe.com.cdsi.VeficarDocumentoElectronico;
 
-import pe.com.cdsi.VeficarDocumentoElectronico.conexion.Sqlite;
-
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.EventQueue;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import java.awt.Color;
+import javax.swing.JPanel;
+import java.awt.Component;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import java.awt.Cursor;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-
+import javax.swing.ImageIcon;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 public class Main {
 
@@ -44,59 +49,45 @@ public class Main {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JTabbedPane tbpPrincipal = new JTabbedPane(JTabbedPane.TOP);
-		tbpPrincipal.setBackground(Color.WHITE);
-		tbpPrincipal.setBounds(0, 0, 434, 261);
-		frame.getContentPane().add(tbpPrincipal);
+		JPanel pPrincipal = new JPanel();
+		pPrincipal.setBackground(Color.WHITE);
+		pPrincipal.setBounds(0, 0, 358, 271);
+		frame.getContentPane().add(pPrincipal);
+		pPrincipal.setLayout(null);
 		
-		JPanel pHome = new JPanel();
-		tbpPrincipal.addTab("Home", null, pHome, null);
+		JButton btnIniciar = new JButton("");
+		btnIniciar.setIcon(new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/play.png")));
+		btnIniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnIniciar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnIniciar.setActionCommand("");
+		btnIniciar.setBounds(259, 11, 89, 52);
+		pPrincipal.add(btnIniciar);
 		
-		JPanel pConexion = new JPanel();
-		tbpPrincipal.addTab("Conexión", null, pConexion, null);
-		pConexion.setLayout(null);
+		JPanel pEstado = new JPanel();
+		pEstado.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		pEstado.setBackground(Color.PINK);
+		pEstado.setBounds(10, 11, 147, 52);
+		pPrincipal.add(pEstado);
+		pEstado.setLayout(null);
 		
-		JPanel pSqlite = new JPanel();
-		pSqlite.setBorder(new LineBorder(new Color(128, 128, 128)));
-		pSqlite.setBounds(0, 0, 218, 233);
-		pConexion.add(pSqlite);
-		pSqlite.setLayout(null);
+		JLabel lblEstado = new JLabel("APAGADO");
+		lblEstado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEstado.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblEstado.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblEstado.setBounds(10, 11, 127, 30);
+		pEstado.add(lblEstado);
 		
-		JLabel lblSqlite = new JLabel("SQLITE");
-		lblSqlite.setBounds(74, 11, 64, 14);
-		pSqlite.add(lblSqlite);
-		
-		JLabel lblSfs1 = new JLabel("SFS BD");
-		lblSfs1.setBounds(10, 29, 75, 14);
-		pSqlite.add(lblSfs1);
-		
-		JTextPane txtSfsbd = new JTextPane();
-		txtSfsbd.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		txtSfsbd.setBackground(Color.WHITE);
-		txtSfsbd.setBounds(10, 46, 186, 20);
-		pSqlite.add(txtSfsbd);
-		
-		JButton btnConectarSqlite = new JButton("CONECTAR");
-		btnConectarSqlite.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-
-				String direccionBDSqlite = txtSfsbd.getText();
-				Sqlite objSqlite = new Sqlite(direccionBDSqlite);
-				objSqlite.desconectar();
-			}
-		});
-		btnConectarSqlite.setBounds(89, 77, 107, 23);
-		pSqlite.add(btnConectarSqlite);
-		
-		JPanel pOracle = new JPanel();
-		pOracle.setBorder(new LineBorder(new Color(128, 128, 128)));
-		pOracle.setBounds(216, 0, 213, 233);
-		pConexion.add(pOracle);
-		pOracle.setLayout(null);
+		JButton btnApagar = new JButton("");
+		btnApagar.setIcon(new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/stop.png")));
+		btnApagar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnApagar.setAlignmentX(0.5f);
+		btnApagar.setActionCommand("");
+		btnApagar.setBounds(167, 11, 89, 52);
+		pPrincipal.add(btnApagar);
+		frame.setBounds(100, 100, 374, 310);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
