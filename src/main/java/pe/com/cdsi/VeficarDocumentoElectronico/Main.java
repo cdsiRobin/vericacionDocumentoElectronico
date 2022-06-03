@@ -13,12 +13,10 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.ImageIcon;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
 
 public class Main {
 
-	private JFrame frame;
+	private JFrame frmVerificacinDeDe;
 
 	/**
 	 * Launch the application.
@@ -28,7 +26,7 @@ public class Main {
 			public void run() {
 				try {
 					Main window = new Main();
-					window.frame.setVisible(true);
+					window.frmVerificacinDeDe.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,17 +45,18 @@ public class Main {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.getContentPane().setLayout(null);
+		frmVerificacinDeDe = new JFrame();
+		frmVerificacinDeDe.setTitle("Verificación de D.E SFS");
+		frmVerificacinDeDe.getContentPane().setBackground(Color.WHITE);
+		frmVerificacinDeDe.getContentPane().setLayout(null);
 		
 		JPanel pPrincipal = new JPanel();
 		pPrincipal.setBackground(Color.WHITE);
 		pPrincipal.setBounds(0, 0, 358, 271);
-		frame.getContentPane().add(pPrincipal);
+		frmVerificacinDeDe.getContentPane().add(pPrincipal);
 		pPrincipal.setLayout(null);
 		
-		JButton btnIniciar = new JButton("");
+		JButton btnIniciar = new JButton();
 		btnIniciar.setIcon(new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/play.png")));
 		btnIniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnIniciar.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -80,14 +79,14 @@ public class Main {
 		lblEstado.setBounds(10, 11, 127, 30);
 		pEstado.add(lblEstado);
 		
-		JButton btnApagar = new JButton("");
+		JButton btnApagar = new JButton();
 		btnApagar.setIcon(new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/stop.png")));
 		btnApagar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnApagar.setAlignmentX(0.5f);
 		btnApagar.setActionCommand("");
 		btnApagar.setBounds(167, 11, 89, 52);
 		pPrincipal.add(btnApagar);
-		frame.setBounds(100, 100, 374, 310);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmVerificacinDeDe.setBounds(100, 100, 374, 310);
+		frmVerificacinDeDe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
