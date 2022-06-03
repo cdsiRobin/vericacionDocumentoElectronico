@@ -10,9 +10,15 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JSeparator;
+import javax.swing.JSplitPane;
+import javax.swing.JProgressBar;
 
 public class Main {
 
@@ -86,6 +92,46 @@ public class Main {
 		btnApagar.setActionCommand("");
 		btnApagar.setBounds(167, 11, 89, 52);
 		pPrincipal.add(btnApagar);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 74, 338, 2);
+		pPrincipal.add(separator);
+		
+		JPanel pVistaEnvio = new JPanel();
+		pVistaEnvio.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		pVistaEnvio.setBackground(Color.WHITE);
+		pVistaEnvio.setBounds(10, 85, 338, 175);
+		pPrincipal.add(pVistaEnvio);
+		pVistaEnvio.setLayout(null);
+		
+		JLabel lblBdSqlite = new JLabel();
+		lblBdSqlite.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBdSqlite.setBounds(10, 11, 37, 42);
+		ImageIcon imagen1= new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/BdSqlite.png"));
+		Icon icono1 = new ImageIcon(imagen1.getImage().getScaledInstance(lblBdSqlite.getWidth(), lblBdSqlite.getHeight(), Image.SCALE_DEFAULT));
+		lblBdSqlite.setIcon(icono1);
+		pVistaEnvio.add(lblBdSqlite);
+		
+		JLabel lblDocumento = new JLabel();		
+		lblDocumento.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDocumento.setBounds(10, 64, 37, 42);
+		ImageIcon imagen2= new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/envioDocumento.gif"));
+		Icon icono2 = new ImageIcon(imagen2.getImage().getScaledInstance(lblDocumento.getWidth(), lblDocumento.getHeight(), Image.SCALE_DEFAULT));
+		lblDocumento.setIcon(icono2);
+		pVistaEnvio.add(lblDocumento);
+		
+		JLabel lblEmpresa = new JLabel();
+
+		lblEmpresa.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEmpresa.setBounds(10, 122, 37, 42);
+		ImageIcon imagen3= new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/empresa.png"));
+		Icon icono3 = new ImageIcon(imagen3.getImage().getScaledInstance(lblEmpresa.getWidth(), lblEmpresa.getHeight(), Image.SCALE_DEFAULT));
+		lblEmpresa.setIcon(icono3);
+		pVistaEnvio.add(lblEmpresa);
+		
+		/*ImageIcon imagen1= new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/envioDocumento.gif"));
+		Icon icono = new ImageIcon(imagen1.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));*/
+		
 		frmVerificacinDeDe.setBounds(100, 100, 374, 310);
 		frmVerificacinDeDe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
