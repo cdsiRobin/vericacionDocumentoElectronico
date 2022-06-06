@@ -1,6 +1,7 @@
 package pe.com.cdsi.VeficarDocumentoElectronico.entidad;
 
 public class DocumentoEnti {
+	
     private String TIP_DOCU;
     private String NUM_DOCU;
     private String IND_SITU;

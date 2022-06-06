@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import java.awt.Component;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
@@ -17,15 +19,16 @@ import javax.swing.border.LineBorder;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
-import javax.swing.JSplitPane;
-import javax.swing.JProgressBar;
-import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Main {
 
 	private JFrame frmVerificacinDeDe;
+	private JLabel lblDocumento;
+	private String iconoDocu = "/pe/com/cdsi/VeficarDocumentoElectronico/iconos/documento.png";
 
 	/**
 	 * Launch the application.
@@ -65,15 +68,6 @@ public class Main {
 		frmVerificacinDeDe.getContentPane().add(pPrincipal);
 		pPrincipal.setLayout(null);
 		
-		JButton btnIniciar = new JButton();
-		btnIniciar.setToolTipText("Iniciar");
-		btnIniciar.setIcon(new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/play.png")));
-		btnIniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnIniciar.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnIniciar.setActionCommand("");
-		btnIniciar.setBounds(259, 11, 89, 52);
-		pPrincipal.add(btnIniciar);
-		
 		JPanel pEstado = new JPanel();
 		pEstado.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		pEstado.setBackground(Color.PINK);
@@ -87,16 +81,7 @@ public class Main {
 		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblEstado.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblEstado.setBounds(10, 11, 127, 30);
-		pEstado.add(lblEstado);
-		
-		JButton btnApagar = new JButton();
-		btnApagar.setToolTipText("Cancelar");
-		btnApagar.setIcon(new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/stop.png")));
-		btnApagar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnApagar.setAlignmentX(0.5f);
-		btnApagar.setActionCommand("");
-		btnApagar.setBounds(167, 11, 89, 52);
-		pPrincipal.add(btnApagar);
+		pEstado.add(lblEstado);			
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 74, 338, 2);
@@ -117,10 +102,10 @@ public class Main {
 		lblBdSqlite.setIcon(icono1);
 		pVistaEnvio.add(lblBdSqlite);
 		
-		JLabel lblDocumento = new JLabel();		
+		lblDocumento = new JLabel();
 		lblDocumento.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDocumento.setBounds(10, 64, 37, 42);
-		ImageIcon imagen2= new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/envioDocumento.gif"));
+		ImageIcon imagen2= new ImageIcon(Main.class.getResource(iconoDocu));
 		Icon icono2 = new ImageIcon(imagen2.getImage().getScaledInstance(lblDocumento.getWidth(), lblDocumento.getHeight(), Image.SCALE_DEFAULT));
 		lblDocumento.setIcon(icono2);
 		pVistaEnvio.add(lblDocumento);
@@ -148,10 +133,82 @@ public class Main {
 		JTextPane txplog = new JTextPane();
 		scrollPane.setViewportView(txplog);
 		
-		/*ImageIcon imagen1= new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/envioDocumento.gif"));
-		Icon icono = new ImageIcon(imagen1.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));*/
+		JButton btnIniciar = new JButton();
+		// EVENTO CLICK DEL BOTON INICIAR
+		btnIniciar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de iniciar?");
+				if (respuesta == 0) {
+					iconoDocu = "/pe/com/cdsi/VeficarDocumentoElectronico/iconos/envioDocumento.gif";
+					cambiarIconoDocumento(pVistaEnvio, lblDocumento, iconoDocu);
+					cambiarColorTextoAlerta(pPrincipal, pEstado, lblEstado, "INICIADO", 1);
+				}
+			}
+		});
+		
+		btnIniciar.setToolTipText("Iniciar");
+		btnIniciar.setIcon(new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/play.png")));
+		btnIniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnIniciar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnIniciar.setActionCommand("");
+		btnIniciar.setBounds(259, 11, 89, 52);
+		pPrincipal.add(btnIniciar);
+		
+		JButton btnApagar = new JButton();
+		btnApagar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de calcelar?");				
+				if (respuesta == 0) {
+				    iconoDocu = "/pe/com/cdsi/VeficarDocumentoElectronico/iconos/documento.png";
+					cambiarIconoDocumento(pVistaEnvio, lblDocumento, iconoDocu);
+					cambiarColorTextoAlerta(pPrincipal, pEstado, lblEstado, "APAGADO", 0);
+				}
+			}
+		});
+		btnApagar.setToolTipText("Cancelar");
+		btnApagar.setIcon(new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/stop.png")));
+		btnApagar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnApagar.setAlignmentX(0.5f);
+		btnApagar.setActionCommand("");
+		btnApagar.setBounds(167, 11, 89, 52);
+		pPrincipal.add(btnApagar);
 		
 		frmVerificacinDeDe.setBounds(100, 100, 374, 310);
 		frmVerificacinDeDe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
+	private void cambiarIconoDocumento(JPanel vistaEnvio, JLabel documento, String iconoDocmento ) {
+		documento.setHorizontalAlignment(SwingConstants.CENTER);
+		documento.setBounds(10, 64, 37, 42);
+		ImageIcon imagen2= new ImageIcon(Main.class.getResource(iconoDocmento));
+		Icon icono2 = new ImageIcon(imagen2.getImage().getScaledInstance(documento.getWidth(), documento.getHeight(), Image.SCALE_DEFAULT));
+		lblDocumento.setIcon(icono2);
+		vistaEnvio.add(documento);
+	}
+	
+	private void cambiarColorTextoAlerta(JPanel pPrincipal, JPanel pEstado, JLabel lblEstado, String nombre, int color) {
+	   // pEstado = new JPanel();
+		pEstado.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		if (color == 0) {
+			pEstado.setBackground(Color.PINK);
+		} else {
+			pEstado.setBackground(Color.GREEN);
+		}
+		  
+		pEstado.setBounds(10, 11, 147, 52);
+		pPrincipal.add(pEstado);
+		pEstado.setLayout(null);
+		
+		//lblEstado = new JLabel(nombre);
+		lblEstado.setText(nombre);
+		lblEstado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEstado.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblEstado.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblEstado.setBounds(10, 11, 127, 30);
+		pEstado.add(lblEstado);	
+	}
+	
 }
