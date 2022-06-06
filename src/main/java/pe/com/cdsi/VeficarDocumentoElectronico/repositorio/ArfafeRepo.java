@@ -12,7 +12,7 @@ public class ArfafeRepo {
 
     public List<String> listaCias(){
         try {
-            String sql = "SELECT DISTINCT TRIM(NO_CIA) FROM FACTU.ARFAFE WHERE estado_sunat = 'E' AND ESTADO NOT IN('A')";
+            String sql = "SELECT DISTINCT TRIM(NO_CIA) FROM FACTU.ARFAFE WHERE ESTADO_SUNAT = 'E' AND ESTADO NOT IN('A')";
             Oracle oracle = new Oracle();
             Connection connection = oracle.conexion();
             Statement statement = connection.createStatement();
@@ -21,6 +21,8 @@ public class ArfafeRepo {
             while (resultSet.next()){
                 cias.add(resultSet.getString(1));
             }
+            connection.close();
+            statement.close();
             return cias;
         }catch (SQLException ex){
             System.out.println("No se pudo hacer la consulta "+ex.getMessage());
@@ -40,7 +42,10 @@ public class ArfafeRepo {
             while (resultSet.next()){
                 noFactus.add(resultSet.getString(1));
             }
+            connection.close();
+            statement.close();
             return noFactus;
+            
         }catch (SQLException ex){
             System.out.println("No se pudo hacer la consulta "+ex.getMessage());
         }
@@ -57,6 +62,8 @@ public class ArfafeRepo {
             cst.setString(2, noFactu);
             cst.setString(3, estadoSunat);
             cst.execute();
+            
+            connection.close();
         }catch (SQLException ex){
             System.out.println("No se pudo hacer la consulta "+ex.getMessage());
         }

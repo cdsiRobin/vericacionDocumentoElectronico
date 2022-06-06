@@ -16,6 +16,10 @@ import java.awt.Image;
 
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+
+import pe.com.cdsi.VeficarDocumentoElectronico.controlador.ArfafeContro;
+import pe.com.cdsi.VeficarDocumentoElectronico.controlador.MainContro;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
@@ -23,6 +27,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 public class Main {
 
@@ -126,12 +131,12 @@ public class Main {
 		pVistaEnvio.add(pLog);
 		pLog.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 271, 153);
-		pLog.add(scrollPane);
+		JScrollPane scpLog = new JScrollPane();
+		scpLog.setBounds(0, 0, 271, 153);
+		pLog.add(scpLog);
 		
-		JTextPane txplog = new JTextPane();
-		scrollPane.setViewportView(txplog);
+		JTextPane txaLog = new JTextPane();       
+		scpLog.setViewportView(txaLog);
 		
 		JButton btnIniciar = new JButton();
 		// EVENTO CLICK DEL BOTON INICIAR
@@ -143,6 +148,14 @@ public class Main {
 					iconoDocu = "/pe/com/cdsi/VeficarDocumentoElectronico/iconos/envioDocumento.gif";
 					cambiarIconoDocumento(pVistaEnvio, lblDocumento, iconoDocu);
 					cambiarColorTextoAlerta(pPrincipal, pEstado, lblEstado, "INICIADO", 1);
+					ArfafeContro arfafeContro = new ArfafeContro();
+					List<String> cias = arfafeContro.listaCias();
+									
+					for(String cia: cias) {
+						MainContro mainContro = new MainContro(cia);
+						mainContro.start();
+					}
+					
 				}
 			}
 		});
@@ -210,5 +223,6 @@ public class Main {
 		lblEstado.setBounds(10, 11, 127, 30);
 		pEstado.add(lblEstado);	
 	}
+	
 	
 }
