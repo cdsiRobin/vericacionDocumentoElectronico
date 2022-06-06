@@ -19,6 +19,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
 import javax.swing.JProgressBar;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
 
 public class Main {
 
@@ -52,7 +55,7 @@ public class Main {
 	 */
 	private void initialize() {
 		frmVerificacinDeDe = new JFrame();
-		frmVerificacinDeDe.setTitle("Verificación de D.E SFS");
+		frmVerificacinDeDe.setTitle("Verificación");
 		frmVerificacinDeDe.getContentPane().setBackground(Color.WHITE);
 		frmVerificacinDeDe.getContentPane().setLayout(null);
 		
@@ -63,6 +66,7 @@ public class Main {
 		pPrincipal.setLayout(null);
 		
 		JButton btnIniciar = new JButton();
+		btnIniciar.setToolTipText("Iniciar");
 		btnIniciar.setIcon(new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/play.png")));
 		btnIniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnIniciar.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -86,6 +90,7 @@ public class Main {
 		pEstado.add(lblEstado);
 		
 		JButton btnApagar = new JButton();
+		btnApagar.setToolTipText("Cancelar");
 		btnApagar.setIcon(new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/stop.png")));
 		btnApagar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnApagar.setAlignmentX(0.5f);
@@ -128,6 +133,20 @@ public class Main {
 		Icon icono3 = new ImageIcon(imagen3.getImage().getScaledInstance(lblEmpresa.getWidth(), lblEmpresa.getHeight(), Image.SCALE_DEFAULT));
 		lblEmpresa.setIcon(icono3);
 		pVistaEnvio.add(lblEmpresa);
+		
+		JPanel pLog = new JPanel();
+		pLog.setBorder(new LineBorder(Color.LIGHT_GRAY));
+		pLog.setBackground(Color.WHITE);
+		pLog.setBounds(57, 11, 271, 153);
+		pVistaEnvio.add(pLog);
+		pLog.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 0, 271, 153);
+		pLog.add(scrollPane);
+		
+		JTextPane txplog = new JTextPane();
+		scrollPane.setViewportView(txplog);
 		
 		/*ImageIcon imagen1= new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/envioDocumento.gif"));
 		Icon icono = new ImageIcon(imagen1.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));*/
