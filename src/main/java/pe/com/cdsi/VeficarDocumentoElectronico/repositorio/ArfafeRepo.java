@@ -1,7 +1,6 @@
 package pe.com.cdsi.VeficarDocumentoElectronico.repositorio;
 
 import pe.com.cdsi.VeficarDocumentoElectronico.conexion.Oracle;
-import pe.com.cdsi.VeficarDocumentoElectronico.entidad.OracleEnti;
 
 import java.sql.*;
 import java.util.ArrayList;

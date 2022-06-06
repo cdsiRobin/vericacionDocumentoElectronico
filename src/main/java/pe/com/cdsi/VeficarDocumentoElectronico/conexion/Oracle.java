@@ -1,7 +1,5 @@
 package pe.com.cdsi.VeficarDocumentoElectronico.conexion;
 
-import pe.com.cdsi.VeficarDocumentoElectronico.entidad.OracleEnti;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

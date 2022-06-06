@@ -2,11 +2,8 @@ package pe.com.cdsi.VeficarDocumentoElectronico.conexion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-import javax.swing.JOptionPane;
 
 public class Sqlite {
 	private Connection connection = null;
@@ -16,7 +13,6 @@ public class Sqlite {
              this.direccionBD = direccionBD;
 	         Class.forName("org.sqlite.JDBC");
 	         connection = DriverManager.getConnection("jdbc:sqlite:" + this.direccionBD );
-             System.out.println("Conexión exitosa con la base de datos SQLite [ " + this.direccionBD + "]");
 	    }catch(Exception ex){
 	         System.out.println(ex);
              System.out.println("Error de conexión con la B.D SQLite [ " + ex.getMessage() + "]");

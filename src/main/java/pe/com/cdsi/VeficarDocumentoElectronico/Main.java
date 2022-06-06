@@ -152,7 +152,7 @@ public class Main {
 					List<String> cias = arfafeContro.listaCias();
 									
 					for(String cia: cias) {
-						MainContro mainContro = new MainContro(cia);
+						MainContro mainContro = new MainContro(cia,txaLog);
 						mainContro.start();
 					}
 					
