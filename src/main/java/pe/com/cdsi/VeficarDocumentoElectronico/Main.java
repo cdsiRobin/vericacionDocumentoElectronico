@@ -17,8 +17,7 @@ import java.awt.Image;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import pe.com.cdsi.VeficarDocumentoElectronico.controlador.ArfafeContro;
-import pe.com.cdsi.VeficarDocumentoElectronico.controlador.MainContro;
+import pe.com.cdsi.VeficarDocumentoElectronico.controlador.ConsultarController;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -27,13 +26,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Timer;
 
 public class Main {
 
 	private JFrame frmVerificacinDeDe;
 	private JLabel lblDocumento;
 	private String iconoDocu = "/pe/com/cdsi/VeficarDocumentoElectronico/iconos/documento.png";
+	private ConsultarController consultarContro;
 
 	/**
 	 * Launch the application.
@@ -143,18 +145,20 @@ public class Main {
 		btnIniciar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de iniciar?");
+				Path path = Paths.get("");
+				String directoryName = path.toAbsolutePath().toString();
+				
+				int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro de iniciar?"+" . Nombre de la PC : "+directoryName);
 				if (respuesta == 0) {
 					iconoDocu = "/pe/com/cdsi/VeficarDocumentoElectronico/iconos/envioDocumento.gif";
 					cambiarIconoDocumento(pVistaEnvio, lblDocumento, iconoDocu);
 					cambiarColorTextoAlerta(pPrincipal, pEstado, lblEstado, "INICIADO", 1);
-					ArfafeContro arfafeContro = new ArfafeContro();
-					List<String> cias = arfafeContro.listaCias();
-									
-					for(String cia: cias) {
-						MainContro mainContro = new MainContro(cia,txaLog);
-						mainContro.start();
-					}
+					
+					Timer timer = new Timer();
+					txaLog.setText("");
+					consultarContro = new ConsultarController(txaLog);					
+					// cada 5min
+					timer.schedule(consultarContro,0,50000);				
 					
 				}
 			}
@@ -177,9 +181,12 @@ public class Main {
 				    iconoDocu = "/pe/com/cdsi/VeficarDocumentoElectronico/iconos/documento.png";
 					cambiarIconoDocumento(pVistaEnvio, lblDocumento, iconoDocu);
 					cambiarColorTextoAlerta(pPrincipal, pEstado, lblEstado, "APAGADO", 0);
+					consultarContro.cancel();
+					consultarContro.dejarConsultarBD();
 				}
 			}
 		});
+		
 		btnApagar.setToolTipText("Cancelar");
 		btnApagar.setIcon(new ImageIcon(Main.class.getResource("/pe/com/cdsi/VeficarDocumentoElectronico/iconos/stop.png")));
 		btnApagar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
